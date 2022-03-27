@@ -1,0 +1,26 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "mamor", email = "mmorset@gmail.com"},
+]
+license-expression = "MIT"
+dependencies = [
+    "requests>=2.27.1",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = ""
+
+[project.optional-dependencies]
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=22.1.0",
+]
+
+[build-system]
+requires = ["pdm-pep517>=0.12.0"]
+build-backend = "pdm.pep517.api"
