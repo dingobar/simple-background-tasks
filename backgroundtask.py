@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import asyncio
 import logging
 from time import time
+from typing import Any, Dict, List
 
 logger = logging.getLogger()
 
@@ -14,8 +15,9 @@ class BackgroundTask(ABC):
 
     interval: int
     name: str
+    kwargs: Dict[str, Any]
 
-    def __init__(self, interval=None, name=None) -> None:
+    def __init__(self, interval=None, name=None, **kwargs) -> None:
         """Initialize background task
 
         Parameters
@@ -27,12 +29,13 @@ class BackgroundTask(ABC):
         """
         self.interval = interval if interval else 5
         self.name = name if name else str(self.__class__.__name__)
+        self.kwargs = kwargs
 
     async def run_task(self, *args, **kwargs):
         logger.debug('Running task "%s"', self.name)
         t0 = time()
         try:
-            await self.task(*args, **kwargs)
+            await self.task(*args, **kwargs, **self.kwargs)
             logger.debug('Finished task "%s" in %4fs', self.name, time() - t0)
         except Exception as e:
             logger.exception('Task "%s" failed with error %s', self.name, repr(e))
