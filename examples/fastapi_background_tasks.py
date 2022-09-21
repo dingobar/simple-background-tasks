@@ -1,4 +1,7 @@
-"""Run a fastapi app with recurring scheduled background tasks."""
+"""Run a fastapi app with recurring scheduled background tasks.
+
+uvicorn examples.fastapi_background_tasks:app
+"""
 
 import asyncio
 import logging

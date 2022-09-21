@@ -1,16 +1,13 @@
 import asyncio
 import logging
 from time import time
-from typing import Any, Callable
+from typing import Any, Awaitable, Callable
 
 logger = logging.getLogger(__name__)
 
 
 class BackgroundTask:
-    """Abstract class for a background task.
-
-    Implement the async method task(*args, **kwargs).
-    """
+    """Takes a coroutine task as an input, call with asyncio.create_task(task.start())."""
 
     task: Callable[..., None]
     interval: int | float
@@ -19,7 +16,7 @@ class BackgroundTask:
 
     def __init__(
         self,
-        task: Callable[..., None],
+        task: Callable[..., Awaitable],
         interval: int | float = 5,
         name: str | None = None,
         **task_kwargs: Any
